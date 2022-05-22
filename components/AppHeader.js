@@ -30,7 +30,7 @@ app.component('app-header', {
 
                     <!-- User Menu -->
                     <div class="d-flex">
-                        <button @click="pageSignIn" v-if="user.id == 'null'" class="navbar-item my-auto border-0" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                        <button data-bs-toggle="modal" data-bs-target="#signInModal" v-if="user.id == null" class="navbar-item btn my-auto border-0" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
                             Sign In
                         </button>
 
@@ -46,16 +46,16 @@ app.component('app-header', {
                                     </button>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <hr class="dropdown-divider" :class="[ theme.c1 == 'dark' ? 'border-' + theme.c1 : '']">
                                 </li>
                                 <li>
-                                    <button @click="pageAddPost" class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                                    <button data-bs-toggle="modal" data-bs-target="#postModal" class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
                                         <i class="bi bi-plus-lg me-1"></i>
                                         Add a post
                                     </button>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <hr class="dropdown-divider" :class="[ theme.c1 == 'dark' ? 'border-' + theme.c1 : '']">
                                 </li>
                                 <li>
                                     <button @click="pageSettings" class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
@@ -64,7 +64,7 @@ app.component('app-header', {
                                     </button>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <hr class="dropdown-divider" :class="[ theme.c1 == 'dark' ? 'border-' + theme.c1 : '']">
                                 </li>
                                 <li>
                                     <button @click="signOut" class="navbar-item my-auto border-0 ms-3 pb-1" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
@@ -74,10 +74,12 @@ app.component('app-header', {
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="vr mx-3" :class="'text-' + theme.c2"></div>
                         
                         <!-- Theme Switch -->
-                        <button @click="switchTheme(theme.c1)" class="btn navbar-item my-auto border-0 fs-3 p-0 ms-4" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
-                            <i class="bi" :class="'bi-' + [ theme.c1 == 'dark' ? 'sun' : 'moon' ]"></i>
+                        <button @click="switchTheme(theme.c1)" class="navbar-item my-auto border-0 fs-3 p-0 ms-4" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                            <i class="bi" :class="'bi-' + [ theme.c1 == 'dark' ? 'moon' : 'sun' ]"></i>
                         </button>
 
                     </div>
@@ -86,14 +88,17 @@ app.component('app-header', {
         </header>
     `,
     methods: {
-        switchTheme(current) {
-            this.$emit('switch-theme', current)
+        switchTheme(currentTheme) {
+            this.$emit('switch-theme', currentTheme)
         },
         signOut() {
             this.$emit('sign-out')
         },
         pageSignIn() {
             this.$emit('sign-in')
+        },
+        helpMe() {
+            console.log(this.user)
         }
     }
 })

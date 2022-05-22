@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" type="image/x-icon" href="./assets/favicon2.ico">
         
         <!-- Import Font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +29,11 @@
 
     <body class="px-4 py-3 mx-auto" style="background-color: #151515; font-family: 'Open Sans', sans-serif; overflow-wrap: break-word; max-width: 900px;">
         <div id="app">
+            
+            <sign-in-modal :theme="theme" @sign-in="signIn"></sign-in-modal>
+            <post-modal :user="user" :theme="theme" :x="x" @post-submitted="addPost"></post-modal>
             <app-header :user="user" :theme="theme" @switch-theme="switchTheme" @sign-out="signOut" @sign-in="signIn"></app-header>
+            <post-list :theme="theme" :posts="posts" :user="user" :comments="comments" :likes="likes" @like-post="likePost" :clikes="clikes" @like-comment="likeComment"></post-list>
             <app-footer :theme="theme"></app-footer>
         </div>
 
@@ -37,6 +43,10 @@
         <!-- Import Components -->
         <script src="./components/AppHeader.js"></script>
         <script src="./components/AppFooter.js"></script>
+        <script src="./components/PostList.js"></script>
+        <script src="./components/CommentsList.js"></script>
+        <script src="./components/PostModal.js"></script>
+        <script src="./components/SignInModal.js"></script>
 
 
         <!-- Import Bootstrap JS -->
