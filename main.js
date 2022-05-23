@@ -54,10 +54,16 @@ const app = Vue.createApp({
                 }
             ],
             likes: [
-                1
+                {
+                    user: 'M1841',
+                    post: 1
+                }
             ],
             clikes: [
-
+                {
+                    user: 'M1841',
+                    comment: 1
+                }
             ],
             comments: [
                 0,
@@ -115,23 +121,31 @@ const app = Vue.createApp({
             localStorage.isUser = true
         },
         likePost(selectedPost) {
-            if(this.likes.includes(selectedPost)) {
-                this.likes.splice(this.likes.lastIndexOf(selectedPost), 1)
-                this.posts[selectedPost].likes --
+            aux = {
+                user: this.user.name,
+                post: selectedPost
+            }
+            if(this.likes.find(l => (l.user == aux.user && l.post == aux.post)) != undefined) {
+                this.likes.splice(this.likes.lastIndexOf(this.likes.find(l => (l.user == aux.user && l.post == aux.post))), 1)
+                this.posts[aux.post].likes --
             }
             else {
-                this.likes.push(selectedPost)
-                this.posts[selectedPost].likes ++
+                this.likes.push(aux)
+                this.posts[aux.post].likes ++
             }
         },
         likeComment(selectedComment) {
-            if(this.clikes.includes(selectedComment)) {
-                this.clikes.splice(this.clikes.lastIndexOf(selectedComment), 1)
-                this.comments[selectedComment].likes --
+            aux = {
+                user: this.user.name,
+                comment: selectedComment
+            }
+            if(this.clikes.find(l => (l.user == aux.user && l.comment == aux.comment)) != undefined) {
+                this.clikes.splice(this.clikes.lastIndexOf(this.clikes.find(l => (l.user == aux.user && l.comment == aux.comment))), 1)
+                this.comments[aux.comment].likes --
             }
             else {
-                this.clikes.push(selectedComment)
-                this.comments[selectedComment].likes ++
+                this.clikes.push(aux)
+                this.comments[aux.comment].likes ++
             }
         },
         addPost(post) {

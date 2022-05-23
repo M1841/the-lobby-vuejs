@@ -30,6 +30,7 @@ app.component('comments-list', {
                 <h5 class="ps-1">
                     Comments:
                 </h5>
+                <button data-bs-toggle="modal" data-bs-target="#commentModal" type="button" class="d-none" id="openCommentModal"></button>
                 <button @click="addComment" class="border-0 form-control py-3 mt-2" :class="'text-' + theme.c2" :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
                     <i class="bi bi-plus-lg"></i>
                     Add a comment
@@ -55,8 +56,9 @@ app.component('comments-list', {
 
                     <!-- Comment Operations -->
                     <div class="m-auto ps-3 d-flex" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="cursor: default;">
-                        <button @click="likeComment(comment.id)" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + [clikes.includes(comment.id) ? 'danger' : theme.c2]" style="background: none">
-                            <i class="bi me-1" :class="[clikes.includes(comment.id) ? 'bi-heart-fill' : 'bi-heart' ]"></i>
+
+                        <button @click="likeComment(comment.id)" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + [clikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'danger' : theme.c2]" style="background: none">
+                            <i class="bi me-1" :class="[clikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'bi-heart-fill' : 'bi-heart' ]"></i>
                             <span class="text-secondary">
                                 {{ comment.likes }}
                             </span>
@@ -76,6 +78,13 @@ app.component('comments-list', {
         },
         likeComment(selectedComment) {
             this.$emit('like-comment', selectedComment)
+        },
+        addComment() {
+            if(this.user.name == '' && this.user.id == null) {
+                document.getElementById('openSignInModal').click()
+                return
+            }
+            document.getElementById('openCommentModal').click()
         }
     }
 })

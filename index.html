@@ -32,6 +32,7 @@
             
             <sign-in-modal :theme="theme" @sign-in="signIn"></sign-in-modal>
             <post-modal :user="user" :theme="theme" :x="x" @post-submitted="addPost"></post-modal>
+            <comment :user="user" :theme="theme" :x="x" @post-submitted="addPost"></comment>
             <app-header :user="user" :theme="theme" @switch-theme="switchTheme" @sign-out="signOut" @sign-in="signIn"></app-header>
             <post-list :theme="theme" :posts="posts" :user="user" :comments="comments" :likes="likes" @like-post="likePost" :clikes="clikes" @like-comment="likeComment"></post-list>
             <app-footer :theme="theme"></app-footer>
@@ -46,6 +47,7 @@
         <script src="./components/PostList.js"></script>
         <script src="./components/CommentsList.js"></script>
         <script src="./components/PostModal.js"></script>
+        <script src="./components/CommentModal.js"></script>
         <script src="./components/SignInModal.js"></script>
 
 

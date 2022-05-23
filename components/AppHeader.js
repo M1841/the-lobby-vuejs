@@ -23,7 +23,7 @@ app.component('app-header', {
                     <!-- Search Bar -->
                     <form method="GET" class="d-flex w-50">
                         <input type="text" name="search" class="form-control border-0 pe-4" :class="'text-' + theme.c2" required :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
-                        <button @click="search" class="border-0 rounded-0 rounded-end btn" :class="'text-' + theme.c2" style="margin: -36px">
+                        <button @click="search" class="border-0 rounded-0 rounded-end btn" :class="'text-' + theme.c2" style="margin-left: -36px">
                             <i class="bi bi-search"></i>
                         </button>
                     </form>
