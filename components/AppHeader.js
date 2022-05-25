@@ -16,14 +16,14 @@ app.component('app-header', {
                 <nav class="navbar justify-content-evenly justify-content-md-between px-2" :class="'navbar-' + theme.c1">
 
                     <!-- Title -->
-                    <button @click="pageMain" type="button" class="navbar-brand m-0 btn border-0 rounded-0 rounded-end d-flex" :class="'text-' + theme.c2" style="background: none">
+                    <a href="./" type="button" class="navbar-brand m-0 btn border-0 rounded-0 rounded-end d-flex" :class="'text-' + theme.c2" style="background: none">
                         The Lobby
-                    </button>
+                    </a>
 
                     <!-- Search Bar -->
                     <form method="GET" class="d-flex w-50">
                         <input type="text" name="search" class="form-control border-0 pe-4" :class="'text-' + theme.c2" required :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
-                        <button @click="search" class="border-0 rounded-0 rounded-end btn" :class="'text-' + theme.c2" style="margin-left: -36px">
+                        <button type="submit" class="border-0 rounded-0 rounded-end btn" :class="'text-' + theme.c2" style="margin-left: -36px">
                             <i class="bi bi-search"></i>
                         </button>
                     </form>
@@ -40,7 +40,7 @@ app.component('app-header', {
                             </button>
                             <ul class="dropdown-menu" :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
                                 <li>
-                                    <button @click="pageProfile" class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                                    <button class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
                                         <i class="bi bi-card-list me-1"></i>
                                         My profile
                                     </button>
@@ -58,7 +58,7 @@ app.component('app-header', {
                                     <hr class="dropdown-divider" :class="[ theme.c1 == 'dark' ? 'border-' + theme.c1 : '']">
                                 </li>
                                 <li>
-                                    <button @click="pageSettings" class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+                                    <button class="navbar-item my-auto border-0 ms-3" :class="'text-' + theme.c2" style="background: none" unselectable="on" onselectstart="return false;" onmousedown="return false;">
                                         <i class="bi bi-gear me-1"></i>
                                         Settings
                                     </button>

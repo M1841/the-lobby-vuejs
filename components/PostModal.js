@@ -7,10 +7,6 @@ app.component('post-modal', {
         theme: {
             type: Object,
             required: true
-        },
-        x: {
-            type: Number,
-            required: true
         }
     },
     template:
@@ -49,6 +45,12 @@ app.component('post-modal', {
             </div>
         </div>
     `,
+    data() {
+        return {
+            title: '',
+            postContent: ''
+        }
+    },
     methods: {
         submitPost() {
             if(this.title === '' || this.postContent === '') {
@@ -62,8 +64,8 @@ app.component('post-modal', {
             const post = {
                 id: 0,
                 user: this.user.name,
-                title: this.title,
-                content: this.postContent,
+                title: this.title.trim(),
+                content: this.postContent.trim(),
                 time: aux,
                 likes: 0,
                 comments: 0,

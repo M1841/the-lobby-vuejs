@@ -20,10 +20,19 @@ app.component('post-list', {
             type: Array,
             required: true
         },
-        clikes: {
+        commentLikes: {
             type: Array,
             required: true
         },
+        commentCount: {
+            type: Number,
+            required: true
+        }
+    },
+    emits: {
+        ['like-post']: '',
+        ['like-comment']: '',
+        ['increment-comment-count']: ''
     },
     template:
     /* html */
@@ -33,7 +42,7 @@ app.component('post-list', {
                 <!-- Post Header -->
                 <div class="px-2">
                     <small class="text-muted fs-7 d-flex" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="cursor: default;">
-                        <button @click="pageProfile" type="button" class="m-0 me-1 p-0 border-0 d-flex text-secondary" style="background: none">{{ post.user }}</button>
+                        <button type="button" class="m-0 me-1 p-0 border-0 d-flex text-secondary" style="background: none">{{ post.user }}</button>
                         <span class="text-secondary">
                             - {{ post.time }}
                             <em v-if="post.edited">- edited</em>
@@ -72,12 +81,12 @@ app.component('post-list', {
                     </button>
 
                     <div v-if="post.user == user.name" class="vr mx-3" :class="'text-' + theme.c2"></div>
-                    <button @click="editPost" v-if="post.user == user.name" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + theme.c2" style="background: none">
+                    <button v-if="post.user == user.name" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + theme.c2" style="background: none">
                         <i class="bi bi-pencil-square"></i>
                     </button>
                 </div>
                 <!-- Post Comments -->
-                <comments-list :post="post.id" :theme="theme" :user="user" :comments="comments" :clikes="clikes" @like-comment="likeComment"></comments-list>
+                <comments-list :posts="posts" :post="post.id" :theme="theme" :user="user" :comments="comments" :comment-count="commentCount" :comment-likes="commentLikes" @like-comment="likeComment" @increment-comment-count="incrementCommentCount"></comments-list>
             </div>
         </div>
     `,
@@ -95,11 +104,9 @@ app.component('post-list', {
                 return
             }
             this.$emit('like-comment', selectedComment)
-        }
-    },
-    data() {
-        return {
-            likes: this.likes
+        },
+        incrementCommentCount() {
+            this.$emit('increment-comment-count')
         }
     }
 })

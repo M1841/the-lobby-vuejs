@@ -16,22 +16,31 @@ app.component('comments-list', {
             type: Array,
             required: false
         },
-        clikes: {
+        commentLikes: {
             type: Array,
             required: true
         },
+        posts: {
+            type: Array,
+            required: true
+        },
+        commentCount: {
+            type: Number,
+            required: true
+        }
     },
     template:
     /* html */
     `
         <div class="collapse" :id="'comments-' + post">
+            <comment-modal :post="post" :user="user" :theme="theme" @comment-submitted="addComment"></comment-modal>
             <hr class="m-2" :class="'text-' + theme.c2">
             <div class="px-2" :class="'text-' + theme.c2">
                 <h5 class="ps-1">
                     Comments:
                 </h5>
-                <button data-bs-toggle="modal" data-bs-target="#commentModal" type="button" class="d-none" id="openCommentModal"></button>
-                <button @click="addComment" class="border-0 form-control py-3 mt-2" :class="'text-' + theme.c2" :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
+                <button data-bs-toggle="modal" :data-bs-target="'#commentModal-' + post" type="button" class="d-none" :id="'openCommentModal-' + post"></button>
+                <button @click="openCommentModal(post)" class="border-0 form-control py-3 mt-2" :class="'text-' + theme.c2" :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
                     <i class="bi bi-plus-lg"></i>
                     Add a comment
                 </button>
@@ -57,13 +66,13 @@ app.component('comments-list', {
                     <!-- Comment Operations -->
                     <div class="m-auto ps-3 d-flex" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="cursor: default;">
 
-                        <button @click="likeComment(comment.id)" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + [clikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'danger' : theme.c2]" style="background: none">
-                            <i class="bi me-1" :class="[clikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'bi-heart-fill' : 'bi-heart' ]"></i>
+                        <button @click="likeComment(comment.id)" type="button" class="m-0 me-1 p-0 border-0 d-flex" :class="'text-' + [commentLikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'danger' : theme.c2]" style="background: none">
+                            <i class="bi me-1" :class="[commentLikes.find(l => (l.user == user.name && l.comment == comment.id)) != undefined ? 'bi-heart-fill' : 'bi-heart' ]"></i>
                             <span class="text-secondary">
                                 {{ comment.likes }}
                             </span>
                         </button>
-                        <button @click="editComment" v-if="comment.user == user.name" type="button" class="m-0 ms-2 p-0 border-0 d-flex" :class="'text-' + theme.c2" style="background: none">
+                        <button v-if="comment.user == user.name" type="button" class="m-0 ms-2 p-0 border-0 d-flex" :class="'text-' + theme.c2" style="background: none">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         
@@ -79,12 +88,18 @@ app.component('comments-list', {
         likeComment(selectedComment) {
             this.$emit('like-comment', selectedComment)
         },
-        addComment() {
+        openCommentModal(currentPost) {
             if(this.user.name == '' && this.user.id == null) {
                 document.getElementById('openSignInModal').click()
                 return
             }
-            document.getElementById('openCommentModal').click()
+            document.getElementById('openCommentModal-' + currentPost).click()
+        },
+        addComment(newComment) {
+            newComment.id = this.commentCount + 1
+            this.posts[newComment.post].comments ++
+            this.comments.push(newComment)
+            this.$emit('increment-comment-count')
         }
     }
 })

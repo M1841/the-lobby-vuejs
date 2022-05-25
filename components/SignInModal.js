@@ -25,7 +25,7 @@ app.component("sign-in-modal", {
                                     <i class="bi" :class="'bi-eye' + [showPassword ? '' : '-slash']"></i>
                                 </button>
                             </div>
-                            <div class="text-secondary w-100 fst-italic" style="font-size: 0.9rem" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="cursor: default;">There are no real accounts. You can type whatever you want!</div>
+                            <div class="text-secondary w-100 fst-italic" style="cursor: default;font-size: 0.9rem" unselectable="on" onselectstart="return false;" onmousedown="return false;">There are no real accounts. You can type whatever you want!</div>
                             <button type="submit" class="border-0 form-control py-3 mt-2 mb-0 text-success" :style="'background-color:' + [ theme.c1 == 'dark' ? '#151515' : '#E9E9E9' ]">
                                 <i class="bi bi-check2-square"></i>
                                 Sign In
@@ -39,7 +39,8 @@ app.component("sign-in-modal", {
     `,
     data() {
         return {
-            showPassword: false
+            showPassword: false,
+            username: ''
         }
     },
     methods: {

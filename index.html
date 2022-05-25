@@ -31,10 +31,9 @@
         <div id="app">
             
             <sign-in-modal :theme="theme" @sign-in="signIn"></sign-in-modal>
-            <post-modal :user="user" :theme="theme" :x="x" @post-submitted="addPost"></post-modal>
-            <comment :user="user" :theme="theme" :x="x" @post-submitted="addPost"></comment>
+            <post-modal :user="user" :theme="theme" @post-submitted="addPost"></post-modal>
             <app-header :user="user" :theme="theme" @switch-theme="switchTheme" @sign-out="signOut" @sign-in="signIn"></app-header>
-            <post-list :theme="theme" :posts="posts" :user="user" :comments="comments" :likes="likes" @like-post="likePost" :clikes="clikes" @like-comment="likeComment"></post-list>
+            <post-list :theme="theme" :posts="posts" :user="user" :comments="comments" :comment-count="commentCount" :likes="likes" @like-post="likePost" :comment-likes="commentLikes" @like-comment="likeComment" @increment-comment-count="incrementCommentCount"></post-list>
             <app-footer :theme="theme"></app-footer>
         </div>
 

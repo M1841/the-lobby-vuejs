@@ -59,7 +59,7 @@ const app = Vue.createApp({
                     post: 1
                 }
             ],
-            clikes: [
+            commentLikes: [
                 {
                     user: 'M1841',
                     comment: 1
@@ -85,7 +85,8 @@ const app = Vue.createApp({
                     likes: 0,
                     edited: false
                 }
-            ]
+            ],
+            commentCount: 2
         }
     },
     methods: {
@@ -139,18 +140,21 @@ const app = Vue.createApp({
                 user: this.user.name,
                 comment: selectedComment
             }
-            if(this.clikes.find(l => (l.user == aux.user && l.comment == aux.comment)) != undefined) {
-                this.clikes.splice(this.clikes.lastIndexOf(this.clikes.find(l => (l.user == aux.user && l.comment == aux.comment))), 1)
+            if(this.commentLikes.find(l => (l.user == aux.user && l.comment == aux.comment)) != undefined) {
+                this.commentLikes.splice(this.commentLikes.lastIndexOf(this.commentLikes.find(l => (l.user == aux.user && l.comment == aux.comment))), 1)
                 this.comments[aux.comment].likes --
             }
             else {
-                this.clikes.push(aux)
+                this.commentLikes.push(aux)
                 this.comments[aux.comment].likes ++
             }
         },
-        addPost(post) {
-            post.id = ++ postCount
-            this.posts.push(post)
+        addPost(newPost) {
+            newPost.id = ++ postCount
+            this.posts.push(newPost)
+        },
+        incrementCommentCount() {
+            this.commentCount ++
         }
     }
 })
